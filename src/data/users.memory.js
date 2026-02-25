@@ -20,4 +20,20 @@ function createUser(name) {
   return newUser;
 }
 
-module.exports = { getAll, getById, createUser };
+function updateUser(id, name) {
+  const user = getById(id);
+  if (user == null) return null;
+  const index = users.findIndex(user => user.id === id);
+  users[index].name = name.trim();
+  return user;
+}
+
+function deleteUser(id) {
+  const user = getById(id);
+  if (user == null) return null;
+  const index = users.findIndex(user => user.id === id);
+  users.splice(index, 1);
+  return true;
+}
+
+module.exports = { getAll, getById, createUser, updateUser, deleteUser };

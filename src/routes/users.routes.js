@@ -12,4 +12,32 @@ router.get("/", (req, res) => {
   res.status(200).json({ page, limit, total: all.length, items });
 });
 
+router.get("/getUserById/:id", (req, res) => {
+  const userId = Number(req.params.id);
+  const user = repository.getById(userId);
+  res.status(200).json({user})
+})
+
+router.post("/", (req, res) => {
+  const name = req.body.name;
+  const user = repository.create(name);
+  res.status(201).json({user});
+});
+
+router.put("/:id", (req, res) => {
+  const userId = Number(req.params.id);
+  const name = req.body.name;
+  const updatedUser = repository.updatedUser(userId, name);
+  if (updatedUser == null) {
+    res.status(404).json({});
+  }
+  res.status(200).json({updatedUser});
+});
+
+router.delete("/:id", (req, res) => {
+  const userId = Number(req.params.id);
+  repository.deleteUser(userId);
+  res.status(200).json({});
+})
+
 module.exports = router;

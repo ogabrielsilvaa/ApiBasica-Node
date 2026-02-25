@@ -13,8 +13,8 @@ app.use(express.json());
 
 //middleare de log
 app.use(logger);
+app.use("/api/v1/users", usersRoutes);
 app.use(errorHandler);
 app.use(notFound);
-app.use("/api/v1/users", usersRoutes);
 
 module.exports = app;

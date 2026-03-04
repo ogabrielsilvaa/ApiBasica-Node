@@ -1,5 +1,5 @@
 const express = require('express');
-repository = require("../data/users.memory");
+repository = require("../database/users.memory");
 const { authenticateToken } = require("../middlewares/authenticateToken");
 const { authorizeRoles } = require("../middlewares/authorizeRoles");
 
@@ -17,7 +17,7 @@ router.get("/", authenticateToken, authorizeRoles("user", "admin"), (req, res) =
 router.get("/getUserById/:id", authenticateToken, authorizeRoles("user", "admin"), (req, res) => {
   const userId = Number(req.params.id);
   const user = repository.getById(userId);
-  res.status(200).json({user})
+  res.status(200).json({user});
 })
 
 router.post("/", authenticateToken, authorizeRoles("admin"), (req, res) => {

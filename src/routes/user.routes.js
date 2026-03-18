@@ -11,11 +11,13 @@ const router = express.Router();
  *  get:
  *    summary: Lista todos os usuários
  *    tags: [Usuários]
+ *    security:
+ *       - bearerAuth: []
  *    responses:
  *      200:
  *        description: Lista de usuários retornada com sucesso
  */
-router.get("/", controller.list);
+router.get("/", authenticateToken, authorizeRoles(["user", "admin"]), controller.list);
 
 /**
  * @swagger
@@ -23,6 +25,8 @@ router.get("/", controller.list);
  *  get:
  *    summary: Busca um usuário por ID
  *    tags: [Usuários]
+ *    security:
+ *       - bearerAuth: []
  *    parameters:
  *      - in: path
  *        name: id
@@ -36,7 +40,7 @@ router.get("/", controller.list);
  *      404:
  *        description: Usuário não encontrado
  */
-router.get("/:id", controller.getById);
+router.get("/:id", authenticateToken, authorizeRoles(["user", "admin"]), controller.getById);
 
 /**
 * @swagger
@@ -51,8 +55,10 @@ router.get("/:id", controller.getById);
 *           schema:
 *             type: object
 *             required:
-*               - Nome
-*               - Email
+*               - nome
+*               - email
+*               - senha
+*               - nomeMae
 *             properties:
 *               nome:
 *                 type: string
@@ -63,18 +69,24 @@ router.get("/:id", controller.getById);
 *               senha:
 *                 type: string
 *                 example: 123
+*               dataNascimento:
+*                 type: string
+*                 format: date
+*                 example: 2036-03-18
+*               rg:
+*                 type: string
+*                 example: 21312123112
+*               cpf:
+*                 type: string
+*                 example: 21312123112
 *               nomeMae:
 *                 type: string
-*                 example: mae
+*                 example: nome da sua mae
 *     responses:
 *       201:
 *         description: Usuário criado com sucesso
 *       400:
 *         description: Dados inválidos
-*       401:
-*         description: Não autorizado (Token ausente ou inválido)
-*       403:
-*         description: Proibido (Permissão insuficiente)
 */
 router.post("/", controller.create);
 
@@ -83,27 +95,45 @@ router.post("/", controller.create);
 * /api/v1/users/{id}:
 *   put:
 *     summary: Atualiza um usuário existente
-*      tags: [Usuários]
-*      security:
-*         - bearerAuth: []
-*      parameters:
-*       - in: path
-*       name: id
-*       required: true
-*       schema:
+*     tags: [Usuários]
+*     security:
+*        - bearerAuth: []
+*     parameters:
+*      - in: path
+*        name: id
+*        required: true
+*        schema:
 *         type: integer
-*       description: ID do usuário
-*      requestBody:
-*       required: true
-*       content:
-*         application/json:
-*           schema:
-*             type: object
-*             properties:
-*               Nome:
+*        description: ID do usuário
+*     requestBody:
+*      required: true
+*      content:
+*        application/json:
+*          schema:
+*            type: object
+*            properties:
+*               nome:
 *                 type: string
-*                Email:
+*                 example: João
+*               email:
 *                 type: string
+*                 example: joao@email.com
+*               senha:
+*                 type: string
+*                 example: 123
+*               dataNascimento:
+*                 type: string
+*                 format: date
+*                 example: 2036-03-18
+*               rg:
+*                 type: string
+*                 example: 21312123112
+*               cpf:
+*                 type: string
+*                 example: 21312123112
+*               nomeMae:
+*                 type: string
+*                 example: nome da sua mae
 *     responses:
 *       200:
 *         description: Usuário atualizado com sucesso
@@ -131,15 +161,15 @@ router.put("/:id", authenticateToken, authorizeRoles(["user", "admin"]), control
 *         schema:
 *           type: integer
 *         description: ID do usuário
-*   responses:
-*     200:
-*       description: Usuário removido com sucesso
-*     401:
-*       description: Não autorizado (Token ausente ou inválido)
-*     403:
-*       description: Proibido (Permissão insuficiente)
-*     404:
-*       description: Usuário não encontrado
+*     responses:
+*       200:
+*         description: Usuário removido com sucesso
+*       401:
+*         description: Não autorizado (Token ausente ou inválido)
+*       403:
+*         description: Proibido (Permissão insuficiente)
+*       404:
+*         description: Usuário não encontrado
 */
 router.delete("/:id", authenticateToken, authorizeRoles(["admin"]), controller.remove);
 

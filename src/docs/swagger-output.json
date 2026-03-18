@@ -70,7 +70,7 @@
         "responses": {
           "200": { "description": "Lista de usuários retornada com sucesso" },
           "401": { "description": "Não autorizado" },
-          "403": { "description": "Proibido" }
+          "403": { "description": "Proibido (Apenas administradores)" }
         }
       },
       "post": {
@@ -108,7 +108,13 @@
         "tags": ["Usuários"],
         "security": [ { "bearerAuth": [] } ],
         "parameters": [
-          { "name": "id", "in": "path", "required": true, "type": "integer" }
+          { 
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID exclusivo do usuário que será buscado."
+          }
         ],
         "responses": {
           "200": { "description": "Usuário encontrado" },
@@ -121,7 +127,13 @@
         "tags": ["Usuários"],
         "security": [ { "bearerAuth": [] } ],
         "parameters": [
-          { "name": "id", "in": "path", "required": true, "type": "integer" },
+          { 
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID exclusivo do usuário que será atualizado."
+          },
           {
             "name": "body",
             "in": "body",
@@ -146,7 +158,13 @@
         "tags": ["Usuários"],
         "security": [ { "bearerAuth": [] } ],
         "parameters": [
-          { "name": "id", "in": "path", "required": true, "type": "integer" }
+          { 
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID exclusivo do usuário que será removido."
+          }
         ],
         "responses": {
           "204": { "description": "Usuário removido com sucesso" },
@@ -198,7 +216,13 @@
         "tags": ["Contatos"],
         "security": [ { "bearerAuth": [] } ],
         "parameters": [
-          { "name": "id", "in": "path", "required": true, "type": "integer" }
+          { 
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID exclusivo do contato que será buscado."
+          }
         ],
         "responses": {
           "200": { "description": "Contato encontrado" },
@@ -211,7 +235,13 @@
         "tags": ["Contatos"],
         "security": [ { "bearerAuth": [] } ],
         "parameters": [
-          { "name": "id", "in": "path", "required": true, "type": "integer" },
+          { 
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID exclusivo do contato que será atualizado."
+          },
           {
             "name": "body",
             "in": "body",
@@ -235,7 +265,13 @@
         "tags": ["Contatos"],
         "security": [ { "bearerAuth": [] } ],
         "parameters": [
-          { "name": "id", "in": "path", "required": true, "type": "integer" }
+          { 
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID exclusivo do contato que será removido."
+          }
         ],
         "responses": {
           "204": { "description": "Contato removido com sucesso" },
@@ -302,7 +338,7 @@
             "in": "path", 
             "required": true, 
             "type": "integer",
-            "description": "ID exclusivo do endereço."
+            "description": "ID exclusivo do endereço que será buscado."
           }
         ],
         "responses": {

@@ -1,4 +1,5 @@
-const swaggerJsdoc = require('swagger-jsdoc');
+// const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerAutogen = require('swagger-autogen');
 
 const options = {
  definition: {
@@ -27,5 +28,8 @@ const options = {
  apis: ['./src/routes/*.js']
 };
 
-const swaggerSpec = swaggerJsdoc(options);
-module.exports = swaggerSpec;
+const outputFile = "./swagger-output.json";
+const endpointFiles = ["./src/app.js"];
+swaggerAutogen(outputFile, endpointFiles, options);
+// const swaggerSpec = swaggerJsdoc(options);
+// module.exports = swaggerSpec;

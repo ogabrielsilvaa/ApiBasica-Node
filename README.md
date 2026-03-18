@@ -32,7 +32,7 @@ O projeto segue uma arquitetura em camadas para separar responsabilidades, facil
   - **`models/`**: Definição da estrutura das tabelas e seus relacionamentos utilizando o Sequelize.
 - **`docs/`**: Contém as configurações e os arquivos gerados (como o JSON estruturado) para a documentação do Swagger.
 - **`middlewares/`**: Interceptadores de requisições, responsáveis pela segurança da API (validação de tokens JWT e autorização de níveis de acesso).
-- - **`repository/`**: Camada exclusiva para comunicação com o banco de dados, isolando as consultas e lógicas do Sequelize do resto da aplicação.
+- **`repository/`**: Camada exclusiva para comunicação com o banco de dados, isolando as consultas e lógicas do Sequelize do resto da aplicação.
 - **`routes/`**: Define os endpoints da API e aplica os middlewares de autenticação e autorização adequados.
 - **`service/`**: Concentra todas as regras de negócio da aplicação (ex: validações, hashing de senhas antes de salvar).
 

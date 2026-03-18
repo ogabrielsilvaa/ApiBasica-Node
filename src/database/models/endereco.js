@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       idUsuario: { type: DataTypes.INTEGER, allowNull: false },
       cep: { type: DataTypes.STRING(20), allowNull: false },
       rua: { type: DataTypes.STRING(150), allowNull: false },
+      numero: { type: DataTypes.STRING(20), allowNull: false },
       complemento: { type: DataTypes.STRING(100), allowNull: false },
       bairro: { type: DataTypes.STRING(100), allowNull: false },
       cidade: { type: DataTypes.STRING(100), allowNull: false },

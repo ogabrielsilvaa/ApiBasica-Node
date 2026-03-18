@@ -1,6 +1,5 @@
 const express = require("express");
 const swaggerUi = require('swagger-ui-express');
-const swaggerSpec = require('./docs/swagger');
 const swaggerFile = require("../src/docs/swagger-output.json");
 const path = require("path");
 require("dotenv").config(); //para pegar as variaveis de ambiente
@@ -18,6 +17,7 @@ const errorHandler = require("./middlewares/errorHandler");
 const authRoutes = require("./routes/auth.routes");
 const userRoutes = require("./routes/user.routes");
 const contatoRoutes = require("./routes/contato.routes");
+const enderecoRoutes = require("./routes/endereco.routes");
 const app = express();
 
 //middleware que transforma a request em JSON
@@ -31,6 +31,7 @@ app.use(logger);
 app.use("/auth", authRoutes);
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/contatos", contatoRoutes);
+app.use("/api/v1/enderecos", enderecoRoutes);
 app.use(errorHandler);
 app.use(notFound);
 
